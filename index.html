@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-do list</h1>
+        <input class="textIn" type="text" placeholder="Add a new name">
+        <input class="nbrIn" type="number" placeholder="Add a new value">
+        <button class="add">Add</button>
+        <ul class="mainList" id="mainList">
+            <li class="listItem" id="li1">
+                <span class="text">workers</span>
+                <span class="nbr">100</span>
+                <button class="delete">Delete</button>
+                <button class="edit">Edit</button>
+            </li>
+        </ul>
+        <h2 class="total">total: </h2>
+    </div>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
