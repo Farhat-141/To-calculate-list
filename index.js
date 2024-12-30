@@ -137,6 +137,5 @@ function calculateTotal() {
     items.forEach(item => {
         total += Number(item.textContent); // Convert to number
     });
-    document.querySelector('.total').textContent = total; // Replace total
+    document.querySelector('.total').textContent += total; // Update total
 }
-
