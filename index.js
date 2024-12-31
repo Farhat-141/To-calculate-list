@@ -141,7 +141,7 @@ function calculateTotal(listSelector, totalSelector) {
     items.forEach(item => {
         total += Number(item.textContent);
     });
-    document.querySelector(totalSelector).textContent =`the total is: ${total}`;
+    document.querySelector(totalSelector).textContent = total;
     calculateDiff();
 }
 
@@ -150,9 +150,8 @@ addItem('.add', '.mainList', '.textIn', '.nbrIn', '.total');
 addItem('.add2', '.mainList2', '.textIn2', '.nbrIn2', '.total2');
 
 function calculateDiff() {
-    let diff = 0;
     let total1 = document.querySelector('.total').textContent;
     let total2 = document.querySelector('.total2').textContent;
-    diff = total1 - total2;
-    document.querySelector('.diff').textContent = `the diffrence is ${diff}`;
+    let diff = total1 - total2;
+    document.querySelector('.diff').textContent = `the diffrent is ${diff}`;
 }
