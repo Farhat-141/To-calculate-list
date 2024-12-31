@@ -132,6 +132,7 @@ function addItem(addSelector, listSelector, textInputSelector, nbrInputSelector,
         });
 
         calculateTotal(listSelector, totalSelector);
+        calculateDiff();
     });
 }
 
