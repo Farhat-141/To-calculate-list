@@ -4,7 +4,15 @@ body{
     color: white;
 }
 .container{
-    border-radius: 10px;
+    display: flex;
+    row-gap: 1rem;
+    overflow: scroll;
+    flex-wrap: wrap;
+}
+.subContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 h1{
     font-size: 50px;
@@ -19,9 +27,9 @@ input{
     border-radius: 5px;
     border: none;
 }
-.add{
-    padding: 10px 5px;
-    margin: 5px 0;
+.add, .add2{
+    padding: 10px 20px;
+    margin: 5px;
     border-radius: 5px;
     border: none;
     background-color: lightgreen;
@@ -34,18 +42,20 @@ input{
     color: white;
     transition: 0.2s
 }
-.mainList{
+.mainList, .mainList2 {
     list-style: none;
-    width: fit-content;
-    padding: 5px 50px 5px 0;
+    padding: 5px;
     color: black;
+    width: fit-content;
     color: white;
+    border: 1px solid white;
 }
 .listItem{
     display: flex;
     align-items: center;
-    width: 100%;
-    padding: 10px;
+    box-sizing: border-box;
+    padding: 5px;
+    gap: 0.5rem;
     justify-content: space-between;
     border: 2px solid white;
     border-radius: 5px;

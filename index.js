@@ -53,89 +53,106 @@ function calculateTotal(){
     });
     document.querySelector('.total').value = nbr;
 }
+*/
+function addItem(addSelector, listSelector, textInputSelector, nbrInputSelector, totalSelector) {
+    let addEl = document.querySelector(addSelector);
+    let listEl = document.querySelector(listSelector);
 
-*/let addEl = document.querySelector('.add');
-let listEl = document.querySelector('.mainList');
+    addEl.addEventListener('click', function () {
+        let textinputEl = document.querySelector(textInputSelector);
+        let nbrinputEl = document.querySelector(nbrInputSelector);
+        let nbrvalue = Number(nbrinputEl.value);
+        let textvalue = textinputEl.value;
 
-addEl.addEventListener('click', function() {
-    let textinputEl = document.querySelector('.textIn');
-    let nbrinputEl = document.querySelector('.nbrIn');
-    let nbrvalue = Number(nbrinputEl.value); // Convert to number
-    let textvalue = textinputEl.value;
+        if (textvalue === '' || isNaN(nbrvalue) || nbrvalue === 0) {
+            alert('Please enter valid text and number.');
+            return;
+        }
 
-    if (textvalue === '' || nbrvalue === '') {
-        return;
-    }
+        let liEl = document.createElement('li');
+        liEl.setAttribute('class', 'listItem');
 
-    let liEl = document.createElement('li');
-    liEl.setAttribute('class', 'listItem');
+        let textEl = document.createElement('span');
+        textEl.textContent = textvalue;
+        textEl.setAttribute('class', 'text');
 
-    let textEl = document.createElement('span');
-    textEl.textContent = textvalue;
-    textEl.setAttribute('class', 'text');
+        let nbrEl = document.createElement('span');
+        nbrEl.textContent = nbrvalue;
+        nbrEl.setAttribute('class', 'nbr');
 
-    let nbrEl = document.createElement('span');
-    nbrEl.textContent = nbrvalue;
-    nbrEl.setAttribute('class', 'nbr');
+        let delBtn = document.createElement('button');
+        delBtn.textContent = 'delete';
+        delBtn.setAttribute('class', 'delete');
 
-    let delBtn = document.createElement('button');
-    delBtn.textContent = 'delete';
-    delBtn.setAttribute('class', 'delete');
+        let editBtn = document.createElement('button');
+        editBtn.textContent = 'edit';
+        editBtn.setAttribute('class', 'edit');
 
-    let editBtn = document.createElement('button');
-    editBtn.textContent = 'edit';
-    editBtn.setAttribute('class', 'edit');
+        liEl.appendChild(textEl);
+        liEl.appendChild(nbrEl);
+        liEl.appendChild(delBtn);
+        liEl.appendChild(editBtn);
+        listEl.appendChild(liEl);
 
-    liEl.appendChild(textEl);
-    liEl.appendChild(nbrEl);
-    liEl.appendChild(delBtn);
-    liEl.appendChild(editBtn);
-    listEl.appendChild(liEl);
+        textinputEl.value = '';
+        nbrinputEl.value = '';
 
-    textinputEl.value = '';
-    nbrinputEl.value = '';
-
-    delBtn.addEventListener('click', function() {
-        listEl.removeChild(liEl);
-        calculateTotal();
-    });
-
-    editBtn.addEventListener('click', function() {
-        let textEditEl = document.createElement('input');
-        textEditEl.type = 'text';
-        textEditEl.value = textEl.textContent;
-
-        let nbrEditEl = document.createElement('input');
-        nbrEditEl.type = 'number';
-        nbrEditEl.value = nbrEl.textContent;
-
-        let saveBtn = document.createElement('button');
-        saveBtn.textContent = 'save';
-
-        liEl.replaceChild(textEditEl, textEl);
-        liEl.replaceChild(nbrEditEl, nbrEl);
-        liEl.replaceChild(saveBtn, editBtn);
-
-        saveBtn.addEventListener('click', function() {
-            textEl.textContent = textEditEl.value;
-            nbrEl.textContent = nbrEditEl.value;
-
-            liEl.replaceChild(textEl, textEditEl);
-            liEl.replaceChild(nbrEl, nbrEditEl);
-            liEl.replaceChild(editBtn, saveBtn);
-
-            calculateTotal();
+        delBtn.addEventListener('click', function () {
+            listEl.removeChild(liEl);
+            calculateTotal(listSelector, totalSelector);
         });
+
+        editBtn.addEventListener('click', function () {
+            let textEditEl = document.createElement('input');
+            textEditEl.type = 'text';
+            textEditEl.value = textEl.textContent;
+
+            let nbrEditEl = document.createElement('input');
+            nbrEditEl.type = 'number';
+            nbrEditEl.value = nbrEl.textContent;
+
+            let saveBtn = document.createElement('button');
+            saveBtn.textContent = 'save';
+            saveBtn.setAttribute('class', 'edit');
+
+            liEl.replaceChild(textEditEl, textEl);
+            liEl.replaceChild(nbrEditEl, nbrEl);
+            liEl.replaceChild(saveBtn, editBtn);
+
+            saveBtn.addEventListener('click', function () {
+                textEl.textContent = textEditEl.value;
+                nbrEl.textContent = nbrEditEl.value;
+
+                liEl.replaceChild(textEl, textEditEl);
+                liEl.replaceChild(nbrEl, nbrEditEl);
+                liEl.replaceChild(editBtn, saveBtn);
+
+                calculateTotal(listSelector, totalSelector);
+            });
+        });
+
+        calculateTotal(listSelector, totalSelector);
     });
+}
 
-    calculateTotal();
-});
-
-function calculateTotal() {
+function calculateTotal(listSelector, totalSelector) {
     let total = 0;
-    let items = document.querySelectorAll('.mainList .listItem .nbr');
+    let items = document.querySelectorAll(`${listSelector} .listItem .nbr`);
     items.forEach(item => {
-        total += Number(item.textContent); // Convert to number
+        total += Number(item.textContent);
     });
-    document.querySelector('.total').textContent += total; // Update total
+    document.querySelector(totalSelector).textContent =`the total is: ${total}`;
+    calculateDiff();
+}
+
+// Initialize both lists
+addItem('.add', '.mainList', '.textIn', '.nbrIn', '.total');
+addItem('.add2', '.mainList2', '.textIn2', '.nbrIn2', '.total2');
+
+function calculateDiff() {
+    let diff = 0;
+    let total1 = document.querySelector('.total').textContent;
+    let total2 = document.querySelector('.total2').textContent;
+    diff = total1 - total2;
+    document.querySelector('.diff').textContent = `the diffrence is ${diff}`;
 }
